@@ -1,0 +1,33 @@
+.task {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 0.5rem;
+  background: var(--white);
+}
+
+.task li {
+  flex: 1;
+}
+
+.task-item {
+  padding: 0rem 0.5rem;
+}
+
+.finished-btn,
+.delete-btn {
+  font-size: 1rem;
+  color: var(--white);
+  background: var(--default-colour);
+  border: none;
+  padding: 1rem;
+}
+
+.finished-btn {
+  background: rgb(37, 201, 160);
+}
+
+.finished {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

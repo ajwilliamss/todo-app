@@ -1,0 +1,41 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form input,
+form button {
+  font-size: var(--default-font-size);
+  border: none;
+  background: var(--white);
+  padding: 0.5rem;
+}
+
+form input {
+  outline: none;
+}
+
+form button {
+  color: var(--default-colour);
+  background: var(--white);
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: var(--default-colour);
+  color: var(--white);
+}
+
+.select-filter {
+  margin: 1rem;
+}
+
+select {
+  font-size: var(--default-font-size);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 12rem;
+  padding: 0.5rem;
+}

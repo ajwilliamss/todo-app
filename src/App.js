@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Form from "./components/Form/Form";
+import List from "./components/List/List";
+import "./App.css";
 
 function App() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
+  const [filteredTasks, setFilteredTasks] = useState([]);
+
+  const handleFilter = () => {
+    if (filter === "finished") {
+      const finishedTasks = tasks.filter((task) => task.finished === true);
+      setFilteredTasks(finishedTasks);
+    } else if (filter === "unfinished") {
+      const unfinishedTasks = tasks.filter((task) => task.finished === false);
+      setFilteredTasks(unfinishedTasks);
+    } else {
+      const allTasks = tasks;
+      setFilteredTasks(allTasks);
+    }
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [tasks, filter]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header>
+        <h1>Todo list:</h1>
       </header>
-    </div>
+      <Form
+        task={task}
+        setTask={setTask}
+        tasks={tasks}
+        setTasks={setTasks}
+        setFilter={setFilter}
+      />
+      <List tasks={tasks} setTasks={setTasks} filteredTasks={filteredTasks} />
+    </>
   );
 }
 
