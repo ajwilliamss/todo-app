@@ -1,9 +1,16 @@
+import { useContext } from "react";
+import { TaskContext } from "../../contexts/TaskContext";
+import { FilterContext } from "../../contexts/FilterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
 import "./Form.css";
 
-const Form = ({ task, setTask, tasks, setTasks, setFilter }) => {
+const Form = () => {
+  const { task, setTask, tasks, setTasks } = useContext(TaskContext);
+  const { setFilterTask } = useContext(FilterContext);
+
+  // Add new task to the list
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = [
@@ -11,6 +18,7 @@ const Form = ({ task, setTask, tasks, setTasks, setFilter }) => {
       { id: uuidv4(), content: task, finished: false },
     ];
     setTasks(newTask);
+    // Clear input field
     setTask("");
   };
 
@@ -30,7 +38,7 @@ const Form = ({ task, setTask, tasks, setTasks, setFilter }) => {
         <select
           name="filter"
           className="filter-tasks"
-          onChange={(e) => setFilter(e.target.value)}
+          onChange={(e) => setFilterTask(e.target.value)}
         >
           <option value="all">All</option>
           <option value="finished">Finished</option>

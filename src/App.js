@@ -1,19 +1,23 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { TaskContext } from "./contexts/TaskContext";
+import { FilterContext } from "./contexts/FilterContext";
 import Form from "./components/Form/Form";
 import List from "./components/List/List";
 import "./App.css";
 
 function App() {
-  const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState("all");
-  const [filteredTasks, setFilteredTasks] = useState([]);
+  const { tasks } = useContext(TaskContext);
+  const { filterTask, filteredTasks, setFilteredTasks } =
+    useContext(FilterContext);
 
+  /* Assign result of filter method to variable 
+  and pass that variable to setState function. 
+  This ensures the state is not accidentally mutated */
   const handleFilter = () => {
-    if (filter === "finished") {
+    if (filterTask === "finished") {
       const finishedTasks = tasks.filter((task) => task.finished === true);
       setFilteredTasks(finishedTasks);
-    } else if (filter === "unfinished") {
+    } else if (filterTask === "unfinished") {
       const unfinishedTasks = tasks.filter((task) => task.finished === false);
       setFilteredTasks(unfinishedTasks);
     } else {
@@ -24,21 +28,15 @@ function App() {
 
   useEffect(() => {
     handleFilter();
-  }, [tasks, filter]);
+  }, [tasks, filterTask]);
 
   return (
     <>
       <header>
         <h1>Todo list:</h1>
       </header>
-      <Form
-        task={task}
-        setTask={setTask}
-        tasks={tasks}
-        setTasks={setTasks}
-        setFilter={setFilter}
-      />
-      <List tasks={tasks} setTasks={setTasks} filteredTasks={filteredTasks} />
+      <Form />
+      <List filteredTasks={filteredTasks} />
     </>
   );
 }
